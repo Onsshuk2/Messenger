@@ -8,6 +8,8 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Button Content="Click me" Background="Aqua" Click="Button_Click"></Button>
+        <Button Content="Click me, please" Background="pink" Click="Button_Click_1"></Button>
+        
 
     </Grid>
 </Window>

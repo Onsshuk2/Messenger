@@ -29,5 +29,10 @@ namespace Client_App
         {
             MessageBox.Show("You clicked me");
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("You clicked me test 2");
+        }
     }
 }
