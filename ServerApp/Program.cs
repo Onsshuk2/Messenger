@@ -33,6 +33,7 @@ namespace ServerApp
                     case JOIN_CMD:
                         AddMember(clientEndPoint);                        
                         break; 
+
                     case LEAVE_CMD:
                         LeaveMember(clientEndPoint);                        
                         break;                       
