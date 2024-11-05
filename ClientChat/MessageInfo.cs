@@ -10,28 +10,15 @@ namespace ClientChat
 {
     public class MessageInfo
     {
-      
-      
-            public string Text { get; set; }
-            public DateTime Timestamp { get; set; }
-            public ImageSource ImageSource { get; set; } 
+        public string Text { get; set; }
+        public DateTime Timestamp { get; set; }
 
-     
-            public MessageInfo(string text, DateTime timestamp)
-            {
-                Text = text;
-                Timestamp = timestamp;
-                ImageSource = null;
-            }
-
-      
-            public MessageInfo(DateTime timestamp, ImageSource imageSource)
-            {
-                Text = null;
-                Timestamp = timestamp;
-                ImageSource = imageSource;
-            }
-        
+        public MessageInfo(string text, DateTime timestamp)
+        {
+            Text = text;
+            Timestamp = timestamp;
+        }
+    
 
         public override string ToString()
         {
