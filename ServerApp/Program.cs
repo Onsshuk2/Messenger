@@ -1,77 +1,72 @@
-﻿using System.Net;
+﻿using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading.Tasks;
 
-namespace ServerApp
+namespace GordoChatServer
 {
     public class ChatServer
     {
-        const short port = 4040;
-        const string JOIN_CMD = "$<join>";
-        const string LEAVE_CMD = "$<Leave>";
-        UdpClient server;
-        IPEndPoint clientEndPoint = null;
-        List<IPEndPoint> members ;
-        public ChatServer()
+        private TcpListener _listener;
+        private List<TcpClient> _clients;
+
+        public ChatServer(int port)
         {
-            server = new UdpClient(port);
-            members = new List<IPEndPoint>();
+            _listener = new TcpListener(IPAddress.Any, port);
+            _clients = new List<TcpClient>();
         }
-        public void Start()
+
+        public async Task StartAsync()
         {
+            _listener.Start();
+            Console.WriteLine("Server started...");
             while (true)
             {
+                var client = await _listener.AcceptTcpClientAsync();
+                _clients.Add(client);
+                Console.WriteLine("Client connected.");
+                _ = Task.Run(() => HandleClientAsync(client));
+            }
+        }
 
-                byte[] data = server.Receive(ref clientEndPoint);
-                string message = Encoding.UTF8.GetString(data);
-                
-                Console.WriteLine($"Message : {message} from : {clientEndPoint}. " +
-                    $"Date : {DateTime.Now.ToShortTimeString()}");
+        private async Task HandleClientAsync(TcpClient client)
+        {
+            var stream = client.GetStream();
+            var buffer = new byte[1024];
+            while (true)
+            {
+                int bytesRead = await stream.ReadAsync(buffer, 0, buffer.Length);
+                if (bytesRead == 0) break;
+                var message = Encoding.UTF8.GetString(buffer, 0, bytesRead);
+                Console.WriteLine($"Received: {message}");
+                await BroadcastAsync(message, client);
+            }
+            client.Close();
+        }
 
-                switch (message)
+        private async Task BroadcastAsync(string message, TcpClient sender)
+        {
+            foreach (var client in _clients)
+            {
+                if (client != sender)
                 {
-                    case JOIN_CMD:
-                        AddMember(clientEndPoint);                        
-                        break; 
-                    case LEAVE_CMD:
-                        LeaveMember(clientEndPoint);                        
-                        break;                       
-                    default:
-                        SendToAll(data);
-                        break;
+                    var stream = client.GetStream();
+                    var data = Encoding.UTF8.GetBytes(message);
+                    await stream.WriteAsync(data, 0, data.Length);
                 }
             }
         }
-
-        private void SendToAll(byte[] data)
-        {
-            foreach (var member in members)
-            {
-                server.SendAsync(data, data.Length, member);
-            }
-        }
-
-        private void LeaveMember(IPEndPoint member)
-        {
-            members.Remove(member);
-            Console.WriteLine("Member was added!");
-        }
-        private void AddMember(IPEndPoint member)
-        {
-            members.Add(member);
-            Console.WriteLine("Member was added!");
-        }
-      
     }
-    internal class Program
+
+    class Program
     {
-       
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
-            
-            ChatServer server = new ChatServer();
-            server.Start();
-        
+            int port = 4040;
+            var server = new ChatServer(port);
+            await server.StartAsync();
         }
     }
 }

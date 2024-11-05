@@ -4,12 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientChat"
-
         mc:Ignorable="d"
         Title="Gordo" Height="600" Width="1000" Icon="/images/g.ico" Cursor="" ResizeMode="NoResize" Topmost="False" FontFamily="Bahnschrift SemiBold SemiCondensed">
 
     <Window.Resources>
-        <!-- Конвертер для управління видимістю тексту/зображення -->
         <local:NullToVisibilityConverter x:Key="NullToVisibilityConverter"/>
     </Window.Resources>
 
@@ -21,37 +19,26 @@
             <Button Background="#FF100548" Foreground="#FF00A7FF" BorderBrush="#FF00FF79" DockPanel.Dock="Right" Padding="10,5" Margin="5" Name="Leave_Button" Click="Leave_Button_Click" Width="60">Leave</Button>
             <Button Background="#FF100548" Foreground="#FF00A7FF" BorderBrush="#FF00FF79" DockPanel.Dock="Right" Padding="10,5" Margin="5" Name="Join_Button" Click="Join_Button_Click" Width="80">Join</Button>
             <Button Background="#FF100548" Foreground="#FF00A7FF" BorderBrush="#FF00FF79" DockPanel.Dock="Right" Padding="10,5" Margin="5" Name="Send_Button" Click="Send_Button_Click" Width="90">Send</Button>
-            <Button DockPanel.Dock="Right" Padding="0" Margin="5" Width="21" Click="Send_Photo_Button_Click" Content="📷" Height="20"/>
 
             <TextBox TextWrapping="Wrap" AcceptsReturn="False" HorizontalScrollBarVisibility="Disabled" Height="30" VerticalScrollBarVisibility="Auto" Margin="5" VerticalContentAlignment="Center" KeyDown="msgTextBox_KeyDown" Name="msgTextBox" BorderBrush="#FF07112F" Foreground="#FF073248" SelectionTextBrush="#FF180B5B" Width="617" />
-
         </DockPanel>
 
-        <!-- Верхній рядок з назвою чату та полем імені користувача -->
         <TextBlock DockPanel.Dock="Top" TextAlignment="Left" FontSize="18" FontWeight="Bold" Padding="40,5,0,0" Background="#FF0B0A35" Height="32">
             <TextBlock Foreground="#FF0C8B8E" Background="{x:Null}">GORDO CHAT EVERYONE</TextBlock>
             <TextBlock Foreground="#FF0C8B8E" Margin="600,0,0,0">User name: </TextBlock> 
             <TextBlock Name="NicknameTextBox" Foreground="#FF0C8B8E" Background="{x:Null}" />
         </TextBlock>
 
-        <!-- Список повідомлень -->
-        <ListBox Foreground="#FF078E72" ItemsSource="{Binding}" FontFamily="Lucida Console" FontSize="15">
+        <ListBox ItemsSource="{Binding}" Foreground="#FF078E72" FontFamily="Lucida Console" FontSize="15">
             <ListBox.Background>
                 <ImageBrush ImageSource="./Images/chat_background.jpg" TileMode="None" Stretch="Fill"/>
             </ListBox.Background>
 
-            <!-- Оформлення повідомлень -->
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical" Margin="5">
-                        <!-- Час повідомлення -->
                         <TextBlock Text="{Binding Timestamp}" FontSize="10" Foreground="Gray"/>
-
-                        <!-- Відображення тексту або зображення -->
-                        <TextBlock Text="{Binding Text}" FontSize="14"
-                                   Visibility="{Binding Text, Converter={StaticResource NullToVisibilityConverter}}"/>
-                        <Image Source="{Binding ImageSource}" Width="200" Height="200"
-                               Visibility="{Binding ImageSource, Converter={StaticResource NullToVisibilityConverter}}"/>
+                        <TextBlock Text="{Binding Text}" FontSize="14"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
