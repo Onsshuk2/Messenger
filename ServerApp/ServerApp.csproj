@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ClientChat\ClientChat.csproj" />
+    <ProjectReference Include="..\Data_access_layer\Data_access_layer.csproj" />
   </ItemGroup>
 
 </Project>
