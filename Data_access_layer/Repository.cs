@@ -18,6 +18,7 @@ namespace Data_access_layer
             context.Clients.Add(client);
             context.SaveChanges();
         }
+        // for commit
         public List<Client> GetClients() 
         {
             List < Client > clientList= new List < Client >();
