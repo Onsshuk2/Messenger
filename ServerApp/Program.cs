@@ -1,14 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace GordoChatServer
 {
     public class ChatServer
     {
+       
         private TcpListener _listener;
         private List<TcpClient> _clients;
 
@@ -28,7 +33,9 @@ namespace GordoChatServer
                 _clients.Add(client);
                 Console.WriteLine("Client connected.");
                 _ = Task.Run(() => HandleClientAsync(client));
+
             }
+            
         }
 
         private async Task HandleClientAsync(TcpClient client)
@@ -67,6 +74,7 @@ namespace GordoChatServer
             int port = 4040;
             var server = new ChatServer(port);
             await server.StartAsync();
+            
         }
     }
 }
