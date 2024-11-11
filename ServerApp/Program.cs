@@ -71,6 +71,10 @@ namespace GordoChatServer
     {
         static async Task Main(string[] args)
         {
+            ClientChatContext context = new();
+            Repository repository =new Repository(context);
+            
+
             int port = 4040;
             var server = new ChatServer(port);
             await server.StartAsync();

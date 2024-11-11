@@ -1,33 +1,39 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Data_access_layer.Entities;
+﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-
+using DataAccessLayer.Entities;
+using Data_access_layer.Entities;
 
 namespace DataAccessLayer
 {
     public class ClientChatContext : DbContext
     {
-        ClientChatContext(DbContextOptions<ClientChatContext> options) : base(options)
+        public ClientChatContext() { }
+
+        public ClientChatContext(DbContextOptions<ClientChatContext> options) : base(options)
         {
         }
+
         public DbSet<Client> Clients { get; set; }
-        private string connection = ConfigurationManager.ConnectionStrings["ClientChatConnection"].ConnectionString;
+
+        private readonly string connection = "workstation id=GordoMessanger.mssql.somee.com;packet size=4096;user id=Grinchik_SQLLogin_1;pwd=9bfpecft4c;data source=GordoMessanger.mssql.somee.com;persist security info=False;initial catalog=GordoMessanger;TrustServerCertificate=True";
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(connection);
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer(connection);
+            }
         }
-      
 
-
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Client>()
+                .HasMany(c => c.Friends)
+                .WithMany()
+                .UsingEntity<Dictionary<string, object>>(
+                    "ClientFriends",
+                    j => j.HasOne<Client>().WithMany().HasForeignKey("FriendId"),
+                    j => j.HasOne<Client>().WithMany().HasForeignKey("ClientId"));
+        }
     }
 }
