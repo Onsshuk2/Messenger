@@ -1,5 +1,4 @@
 ﻿using Data_access_layer.Entities;
-using DataAccessLayer.Entities;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -89,6 +88,21 @@ namespace DataAccessLayer
                 .FirstOrDefault(c => c.ClientId == clientId);
 
             return client?.Friends.ToList() ?? new List<Client>();
+        }
+        // Get id method
+        public int GetId(string nickName)
+        {
+            int id=0;
+            List<Client> clients=GetClients();
+            foreach (Client client in clients) 
+            {
+                if (client.NickName == nickName) 
+                {
+                    id = client.ClientId; break;
+                }
+            }
+
+            return id;
         }
     }
 }

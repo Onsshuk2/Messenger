@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using Data_access_layer.Entities;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -71,9 +72,6 @@ namespace GordoChatServer
     {
         static async Task Main(string[] args)
         {
-            ClientChatContext context = new();
-            Repository repository =new Repository(context);
-            
 
             int port = 4040;
             var server = new ChatServer(port);

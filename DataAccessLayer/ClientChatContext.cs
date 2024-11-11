@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using DataAccessLayer.Entities;
 using Data_access_layer.Entities;
 
 namespace DataAccessLayer

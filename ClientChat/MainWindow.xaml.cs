@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Data_access_layer.Entities;
+using DataAccessLayer;
+using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Net;
@@ -53,7 +55,14 @@ namespace ClientChat
             await Task.Delay(500);  
             ListenToServer();
             JoinCheck();
-            InitializeTcpConnection(); 
+            InitializeTcpConnection();
+            ClientChatContext context = new();
+            Repository repository = new Repository(context);
+            List<Client> friends = repository.GetAllFriends(3);
+            foreach (var friend in friends)
+            {
+                MessageBox.Show(friend.NickName.ToString());
+            }
         }
 
         private void Send_Button_Click(object sender, RoutedEventArgs e)
