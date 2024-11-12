@@ -5,12 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientChat"
         mc:Ignorable="d"
-        Title="Gordo" Height="282" Width="277" Cursor="IBeam" ResizeMode="NoResize" FontFamily="Segoe UI"
-        WindowStyle="None" FontSize="12" ShowInTaskbar="False" AllowsTransparency="True" Background="Transparent">
+        Title="Gordo" Height="564" Width="554" Cursor="IBeam" ResizeMode="CanResize" FontFamily="Segoe UI" FontSize="24" ShowInTaskbar="False" Background="Transparent" WindowStyle="ThreeDBorderWindow">
 
     <!-- Заокруглений контейнер для вікна -->
-    <Border  CornerRadius="20" BorderBrush="Transparent" BorderThickness="1"
-             >
+    <Border CornerRadius="40" BorderBrush="Transparent" BorderThickness="2">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="#4400ff" Offset="0"/>
@@ -30,27 +28,27 @@
             </Grid.ColumnDefinitions>
 
             <!-- Верхній блок з інформацією про чат і користувача -->
-            <TextBlock Grid.Row="0" TextAlignment="Left" FontSize="14" FontWeight="Normal" Padding="20,5,0,0" Background="#7a92f0" Margin="0,20,0,89" Grid.RowSpan="2">
+            <TextBlock Grid.Row="0" TextAlignment="Left" FontSize="28" Padding="40,10,0,0" Background="#7a92f0" Margin="0,40,0,148" Grid.RowSpan="2">
                 <TextBlock Foreground="#FFFFFF" Background="{x:Null}">GORDO CHAT</TextBlock>
-                <TextBlock Foreground="#FFFFFF" HorizontalAlignment="Right" Margin="0,0,20,0" VerticalAlignment="Center">User name: </TextBlock> 
+                <TextBlock Foreground="#FFFFFF" HorizontalAlignment="Left" VerticalAlignment="Center" Width="140">User name: </TextBlock> 
                 <TextBlock Name="NicknameTextBox" Foreground="#FFFFFF" Background="{x:Null}" HorizontalAlignment="Right"/>
             </TextBlock>
 
             <!-- Список повідомлень -->
-            <ListBox Grid.Row="1" Name="MessagesListBox" ItemsSource="{Binding}" Foreground="#FFFFFF" FontFamily="Segoe UI" FontSize="12" Margin="12,53,8,126" Grid.RowSpan="2">
+            <ListBox Grid.Row="1" Name="MessagesListBox" ItemsSource="{Binding}" Foreground="Black" FontFamily="Segoe UI" FontSize="24" Margin="24,117,16,252" Grid.RowSpan="2">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel Orientation="Vertical" Margin="5">
-                            <TextBlock Text="{Binding Timestamp}" FontSize="10" Foreground="#7a92f0"/>
-                            <TextBlock Text="{Binding Text}" FontSize="12"/>
+                        <StackPanel Orientation="Vertical" Margin="10">
+                            <TextBlock Text="{Binding Timestamp}" FontSize="20" Foreground="#7a92f0"/>
+                            <TextBlock Text="{Binding Text}" FontSize="24"/>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
 
             <!-- Нижня панель для кнопок і текстового поля -->
-            <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="10">
-                <TextBlock Margin="5" FontWeight="Normal" Foreground="#FFFFFF" FontSize="14" VerticalAlignment="Center">Message:</TextBlock>
+            <StackPanel Grid.Row="2" Orientation="Vertical" HorizontalAlignment="Stretch" Margin="20">
+                <TextBlock Margin="10" FontWeight="Normal" Foreground="#FFFFFF" FontSize="28" VerticalAlignment="Center">Message:</TextBlock>
 
                 <Grid>
                     <!-- Кнопки для залишення, приєднання і надсилання повідомлень -->
@@ -60,44 +58,66 @@
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="1" Padding="10,5" Name="Leave_Button" Click="Leave_Button_Click" Width="70" Height="35" Margin="5" FontSize="12">
+                    <Button Grid.Column="0" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Leave_Button" Click="Leave_Button_Click" Width="140" Height="70" Margin="10" FontSize="24" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="20">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" CornerRadius="40">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <!-- Hover Trigger -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#5bafff"/>
+                                        <!-- Цвет при наведении -->
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                         Leave
                     </Button>
 
-                    <Button Grid.Column="1" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="1" Padding="10,5" Name="Join_Button" Click="Join_Button_Click" Height="35" Margin="13,4,88,6" FontSize="12" Grid.ColumnSpan="2">
+                    <Button Grid.Column="1" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Join_Button" Click="Join_Button_Click" Height="70" Margin="26,8,176,12" FontSize="24" Grid.ColumnSpan="2" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="20">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" CornerRadius="40">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <!-- Hover Trigger -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#5bafff"/>
+                                        <!-- Ховер -->
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                         Join
                     </Button>
 
-                    <Button Grid.Column="2" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="1" Padding="10,5" Name="Send_Button" Click="Send_Button_Click" Height="35" Margin="101,5,1,5" FontSize="12">
+                    <Button Grid.Column="2" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Send_Button" Click="Send_Button_Click" Height="70" Margin="202,10,2,10" FontSize="24" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
-                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="1" CornerRadius="20">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" CornerRadius="40">
                                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Border>
+                                <ControlTemplate.Triggers>
+                                    <!-- Hover Trigger -->
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" Value="#5bafff"/>
+                                        <!-- Ховер -->
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                         Send
                     </Button>
+
                 </Grid>
 
-                <Border Background="#4f2ab7" CornerRadius="15" Padding="5">
-                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" Height="30" VerticalScrollBarVisibility="Auto" Margin="5" VerticalContentAlignment="Center" KeyDown="msgTextBox_KeyDown" x:Name="msgTextBox" BorderBrush="#3B3B3E" Foreground="#000000" FontSize="12" SelectionTextBrush="#4400ff">
+                <Border Background="#4f2ab7" CornerRadius="30" Padding="10">
+                    <TextBox TextWrapping="Wrap" AcceptsReturn="True" HorizontalScrollBarVisibility="Disabled" Height="60" VerticalScrollBarVisibility="Auto" Margin="10" VerticalContentAlignment="Center" KeyDown="msgTextBox_KeyDown" x:Name="msgTextBox" BorderBrush="#3B3B3E" Foreground="#000000" FontSize="24" SelectionTextBrush="#4400ff">
                         <TextBox.Effect>
-                            <DropShadowEffect Color="Black" ShadowDepth="3" BlurRadius="6" Opacity="0.2"/>
+                            <DropShadowEffect Color="Black" ShadowDepth="6" BlurRadius="12" Opacity="0.2"/>
                         </TextBox.Effect>
                     </TextBox>
                 </Border>
@@ -105,3 +125,4 @@
         </Grid>
     </Border>
 </Window>
+
