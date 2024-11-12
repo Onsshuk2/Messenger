@@ -1,8 +1,8 @@
 ﻿<Window x:Class="ClientChat.NicknameWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Nickname" Height="270" Width="326" ResizeMode="NoResize" WindowStyle="None" AllowsTransparency="True" Background="Transparent">
-    <Border CornerRadius="10" Padding="10" BorderBrush="#3B3B3E" BorderThickness="1" Margin="0,1,1,3">
+        Title="Nickname" Height="540" Width="652" ResizeMode="CanResize" Background="Transparent" WindowStartupLocation="CenterScreen">
+    <Border CornerRadius="20" Padding="20" BorderBrush="#3B3B3E" BorderThickness="2" Margin="0,2,2,6">
         <Border.Background>
             <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
                 <GradientStop Color="#4400ff" Offset="0"/>
@@ -28,69 +28,84 @@
             <TextBlock Text="Login"
                        HorizontalAlignment="Center"
                        VerticalAlignment="Top"
-                       FontSize="16"
+                       FontSize="32"
                        Foreground="#FFFFFF"
                        FontFamily="Courier New"
-                       Margin="0,-2,0,20"
+                       Margin="0,-4,0,40"
                        Grid.Row="0"/>
 
             <!-- Текст для введення ніку -->
             <TextBlock Text="Enter your nickname:"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       FontSize="12"
+                       FontSize="24"
                        Foreground="#FFFFFF"
                        FontFamily="Courier New"
-                       Margin="10,0,0,0"
+                       Margin="20,0,0,0"
                        Grid.Row="1"/>
 
             <!-- Поле для введення тексту нік -->
-            <Border Background="#b3b8d0" CornerRadius="5" BorderBrush="#565656" BorderThickness="1" Margin="20,10,20,0" Height="30" Grid.Row="2">
+            <Border Background="#b3b8d0" CornerRadius="10" BorderBrush="#565656" BorderThickness="2" Margin="40,20,40,0" Height="60" Grid.Row="2">
                 <TextBox Name="nicknameTextBox"
                          Background="Transparent"
                          Foreground="#000000"
                          BorderThickness="0"
-                         Padding="5"
-                         TextChanged="nicknameTextBox_TextChanged" />
+                         Padding="10"
+                         FontSize="20"
+                          />
             </Border>
 
             <!-- Текст для введення паролю -->
             <TextBlock Text="Enter your password:"
                        HorizontalAlignment="Left"
                        VerticalAlignment="Top"
-                       FontSize="12"
+                       FontSize="24"
                        Foreground="#FFFFFF"
                        FontFamily="Courier New"
-                       Margin="11,23,0,0"
+                       Margin="22,46,0,0"
                        Grid.Row="4"/>
 
             <!-- Поле для введення паролю (Masked text input) -->
-            <Border Background="#b3b8d0" CornerRadius="5" BorderBrush="#565656" BorderThickness="1" Margin="20,10,20,0" Height="30" Grid.Row="4">
+            <Border Background="#b3b8d0" CornerRadius="10" BorderBrush="#565656" BorderThickness="2" Margin="40,20,40,0" Height="60" Grid.Row="4">
                 <PasswordBox Name="passwordTextBox"  
                              Background="Transparent"
                              Foreground="#000000"
                              BorderThickness="0"
-                             Padding="5"
+                             Padding="10"
+                             FontSize="20"
                              />
             </Border>
 
             <!-- Чекбокс для показу пароля -->
             <CheckBox Name="ShowPasswordCheckBox" Content="Show Password" VerticalAlignment="Top" 
-                      HorizontalAlignment="Left" Margin="22,86,0,0" Grid.Row="4" 
-                      />
+                      HorizontalAlignment="Left" Margin="44,172,0,0" Grid.Row="4" 
+                      FontSize="16" />
 
-            <!-- Кнопка enter (placed in the last row) -->
-            <Border Width="128" Height="30" Background="#4400ff" CornerRadius="5" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0" Grid.Row="6">
+            <!-- Кнопка enter с hover эфектом -->
+            <Border Width="256" Height="60" Background="#4400ff" CornerRadius="10" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,20,0,0" Grid.Row="6">
                 <Button Name="OKButton"
                         Content="Enter"
-                        Background="Transparent"
                         Foreground="#FFFFFF"
                         FontFamily="Courier New"
+                        FontSize="20"
                         BorderBrush="Transparent"
                         BorderThickness="0"
-                        Click="OKButton_Click" Margin="1,-1,1,3">
+                        Click="OKButton_Click" Margin="2,2,2,2" IsDefault="True" Cursor="Hand">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="border" Background="#4400ff" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                               
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="border" Property="Background" Value="#7a92f0"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
                     <Button.Effect>
-                        <DropShadowEffect Color="#000000" ShadowDepth="2" Opacity="0.5"/>
+                        <DropShadowEffect Color="#000000" ShadowDepth="4" Opacity="0.5"/>
                     </Button.Effect>
                 </Button>
             </Border>
