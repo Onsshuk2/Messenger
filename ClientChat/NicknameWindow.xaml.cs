@@ -26,6 +26,7 @@ namespace ClientChat
                 Close();
             }
         }
+        
         private void msgTextBox_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
@@ -34,10 +35,6 @@ namespace ClientChat
             }
         }
 
-      
-        private void nicknameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
+        
     }
 }

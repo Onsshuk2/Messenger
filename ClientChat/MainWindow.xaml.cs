@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Data_access_layer.Entities;
+using DataAccessLayer;
+using System;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Net;
@@ -7,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+
 
 namespace ClientChat
 {
@@ -53,7 +56,17 @@ namespace ClientChat
             await Task.Delay(500);  
             ListenToServer();
             JoinCheck();
-            InitializeTcpConnection(); 
+            InitializeTcpConnection();
+            // Next statements are for example, how to start working with database
+            ClientChatContext context = new();
+            Repository repository = new Repository(context);
+
+            List<Client> friends = repository.GetAllFriends(3);
+            foreach (var friend in friends)
+            {
+                MessageBox.Show(friend.NickName.ToString());
+            }
+            /////////////////////////////////////////////////////////////
         }
 
         private void Send_Button_Click(object sender, RoutedEventArgs e)
@@ -203,6 +216,8 @@ namespace ClientChat
                 e.Handled = true;
             }
         }
+
+       
     }
 
 }
