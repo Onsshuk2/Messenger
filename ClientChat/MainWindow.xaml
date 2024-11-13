@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ClientChat"
         mc:Ignorable="d"
-         Title="Gordo" Height="564" Width="554" Cursor="IBeam" ResizeMode="CanResize" FontFamily="Segoe UI" FontSize="24" ShowInTaskbar="False" Background="Transparent" WindowStyle="ThreeDBorderWindow">
+        Title="Gordo" Height="564" Width="554" Cursor="IBeam" ResizeMode="CanResize" FontFamily="Segoe UI" FontSize="24" ShowInTaskbar="False" Background="Transparent" WindowStyle="ThreeDBorderWindow">
 
     <!-- Заокруглений контейнер для вікна -->
     <Border CornerRadius="40" BorderBrush="Transparent" BorderThickness="2">
@@ -53,12 +53,12 @@
                 <Grid>
                     <!-- Кнопки для залишення, приєднання і надсилання повідомлень -->
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Button Grid.Column="0" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Leave_Button" Click="Leave_Button_Click" Width="140" Height="70" Margin="10" FontSize="24" Cursor="Hand">
+                    <Button Grid.Column="0" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Leave_Button" Click="Leave_Button_Click" Height="70" Margin="5" FontSize="24" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" CornerRadius="40">
@@ -68,7 +68,6 @@
                                     <!-- Hover Trigger -->
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter TargetName="border" Property="Background" Value="#5bafff"/>
-                                        <!-- Цвет при наведении -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -76,7 +75,7 @@
                         Leave
                     </Button>
 
-                    <Button Grid.Column="1" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Join_Button" Click="Join_Button_Click" Height="70" Margin="26,8,176,12" FontSize="24" Grid.ColumnSpan="2" Cursor="Hand">
+                    <Button Grid.Column="1" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Join_Button" Click="Join_Button_Click" Height="70" Margin="5" FontSize="24" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" CornerRadius="40">
@@ -86,7 +85,6 @@
                                     <!-- Hover Trigger -->
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter TargetName="border" Property="Background" Value="#5bafff"/>
-                                        <!-- Ховер -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -94,7 +92,7 @@
                         Join
                     </Button>
 
-                    <Button Grid.Column="2" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Send_Button" Click="Send_Button_Click" Height="70" Margin="202,10,2,10" FontSize="24" Cursor="Hand">
+                    <Button Grid.Column="2" Background="#7a92f0" Foreground="#FFFFFF" BorderBrush="#3B3B3E" BorderThickness="2" Padding="20,10" Name="Send_Button" Click="Send_Button_Click" Height="70" Margin="5" FontSize="24" Cursor="Hand">
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border x:Name="border" Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="2" CornerRadius="40">
@@ -104,14 +102,12 @@
                                     <!-- Hover Trigger -->
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter TargetName="border" Property="Background" Value="#5bafff"/>
-                                        <!-- Ховер -->
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
                         Send
                     </Button>
-
                 </Grid>
 
                 <Border Background="#4f2ab7" CornerRadius="30" Padding="10">
