@@ -23,5 +23,10 @@ namespace ClientChat
         {
             InitializeComponent();
         }
+        private void RegisterButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            MessageBox.Show("Register button clicked!");
+        }
     }
 }

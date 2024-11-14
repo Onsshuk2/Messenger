@@ -1,13 +1,10 @@
 ﻿<Window x:Class="ClientChat.Discort_Window"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:ClientChat"
-        mc:Ignorable="d"
         Title="Discort_Window" Height="540" Width="650"
         Background="#36393F" WindowStartupLocation="CenterScreen" 
         WindowStyle="ThreeDBorderWindow">
+
     <!-- Головний фон вікна з градієнтом -->
     <Border CornerRadius="20" BorderThickness="0" Margin="10">
         <Border.Background>
@@ -19,10 +16,9 @@
 
         <!-- Основна сітка для пропорційного розміщення -->
         <Grid Margin="20">
-            <!-- Визначення рядків із відсотковим співвідношенням для пропорційного розміщення -->
+            <!-- Визначення рядків для розташування елементів -->
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*" />
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto"/>
@@ -31,7 +27,6 @@
             <!-- Заголовок "Find Friends" -->
             <TextBlock Text="Find Friends" 
                        HorizontalAlignment="Center" 
-                       VerticalAlignment="Center"
                        FontSize="24" 
                        Foreground="#FFFFFF"
                        FontFamily="Courier New"
@@ -44,7 +39,7 @@
                     Margin="0,0,0,20" 
                     Padding="10" 
                     Height="40"
-                    Grid.Row="2">
+                    Grid.Row="1">
                 <Grid>
                     <TextBox Name="nicknameTextBox"
                              Background="Transparent"
@@ -53,7 +48,6 @@
                              FontSize="16" 
                              FontFamily="Courier New" 
                              Padding="5"/>
-
                     <!-- Placeholder Text -->
                     <TextBlock Text="Enter a username#0000"
                                Foreground="Gray"
@@ -66,13 +60,27 @@
                 </Grid>
             </Border>
 
+            <!-- Список друзів -->
+            <ListBox Grid.Row="2" Name="FriendsListBox" Background="#40444B" 
+                     Foreground="White" BorderThickness="0" FontSize="16" 
+                     Margin="0,10,0,20" HorizontalAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal" Margin="10,5">
+                            <Ellipse Width="10" Height="10" Fill="Green" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding FriendName}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
             <!-- Кнопка для пошуку з hover ефектом -->
             <Border Background="#5865F2" 
                     CornerRadius="8" 
                     Height="40" 
                     HorizontalAlignment="Center"
                     Width="120"
-                    Grid.Row="4">
+                    Grid.Row="3">
                 <Button Content="Search" 
                         Background="Transparent" 
                         Foreground="#FFFFFF" 
@@ -85,14 +93,10 @@
                         <Style TargetType="Button">
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Foreground" Value="#FFFFFF"/>
-                            <Setter Property="FontFamily" Value="Courier New"/>
-                            <Setter Property="FontSize" Value="16"/>
-                            <Setter Property="Padding" Value="5"/>
                             <Style.Triggers>
-                                <!-- Тригер на hover -->
+                                <!-- Hover ефект -->
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="#7289DA"/>
-                                    <Setter Property="Foreground" Value="#FFFFFF"/>
                                 </Trigger>
                             </Style.Triggers>
                         </Style>
