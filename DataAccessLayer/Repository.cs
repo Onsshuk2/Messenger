@@ -45,6 +45,7 @@ namespace DataAccessLayer
                    Regex.IsMatch(password, @"[A-Za-z]") &&
                    Regex.IsMatch(password, @"[0-9]") &&
                    !password.Contains(" ");
+
         }
 
         // Метод для автентифікації користувача (логін)
