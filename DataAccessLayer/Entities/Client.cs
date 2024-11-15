@@ -11,7 +11,8 @@ namespace Data_access_layer.Entities
         public int ClientId { get; set; }
         public string NickName { get; set; }
         public string Password { get; set; }
-        public string Domain { get; set; }
+        //for commit
+        //for commit
 
         public ICollection<Client> Friends { get; set; } = new List<Client>();
     }

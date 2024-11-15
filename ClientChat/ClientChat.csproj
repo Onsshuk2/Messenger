@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+    <ProjectReference Include="..\ServerApp\ServerApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>
