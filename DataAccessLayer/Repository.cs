@@ -15,13 +15,12 @@ namespace DataAccessLayer
         }
         // Create client method
 
-        public void CreateClient(string nickName, string password, string domain)
+        public void CreateClient(string nickName, string password)
         {
             Client client = new Client
             {
                 NickName = nickName,
                 Password = password,
-                Domain = domain
             };
             _context.Clients.Add(client);
             _context.SaveChanges();
@@ -39,7 +38,6 @@ namespace DataAccessLayer
             {
                 existingClient.NickName = client.NickName;
                 existingClient.Password = client.Password;
-                existingClient.Domain = client.Domain;
                 _context.SaveChanges();
             }
         }
