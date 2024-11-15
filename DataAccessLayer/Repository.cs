@@ -1,7 +1,8 @@
-﻿using Data_access_layer.Entities;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
+using Data_access_layer.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
@@ -13,94 +14,46 @@ namespace DataAccessLayer
         {
             _context = context;
         }
-        // Create client method
 
-        public void CreateClient(string nickName, string password)
+        // Метод для створення клієнта з перевіркою на унікальність імені
+        public bool RegisterClient(string nickName, string password)
         {
-            Client client = new Client
+            if (IsNicknameTaken(nickName) || !IsPasswordValid(password))
+                return false;
+
+            var client = new Client
             {
                 NickName = nickName,
-                Password = password,
+                Password = password
             };
+
             _context.Clients.Add(client);
             _context.SaveChanges();
+            return true;
         }
 
-        public List<Client> GetClients()
+        // Перевірка, чи зайняте ім'я користувача
+        public bool IsNicknameTaken(string nickName)
         {
-            return _context.Clients.ToList();
+            return _context.Clients.Any(c => c.NickName == nickName);
         }
-        // Update client method
-        public void UpdateClient(Client client)
+
+        // Перевірка на валідність пароля (мінімум 8 символів, букви і цифри, без пробілів)
+        public bool IsPasswordValid(string password)
         {
-            var existingClient = _context.Clients.Find(client.ClientId);
-            if (existingClient != null)
-            {
-                existingClient.NickName = client.NickName;
-                existingClient.Password = client.Password;
-                _context.SaveChanges();
-            }
+            return password.Length >= 8 &&
+                   Regex.IsMatch(password, @"[A-Za-z]") &&
+                   Regex.IsMatch(password, @"[0-9]") &&
+                   !password.Contains(" ");
         }
-        // Delete client method
-        public void DeleteClient(string nickName)
+
+        // Метод для автентифікації користувача (логін)
+        public bool AuthenticateClient(string nickName, string password)
         {
-            var client = _context.Clients.FirstOrDefault(c => c.NickName == nickName);
-            if (client != null)
-            {
-                _context.Clients.Remove(client);
-                _context.SaveChanges();
-            }
+            return _context.Clients.Any(c => c.NickName == nickName && c.Password == password);
         }
 
-        // Add friend method
-        public void AddFriend(int clientId, int friendId)
-        {
-            var client = _context.Clients.Include(c => c.Friends).FirstOrDefault(c => c.ClientId == clientId);
-            var friend = _context.Clients.Find(friendId);
-
-            if (client != null && friend != null && !client.Friends.Contains(friend))
-            {
-                client.Friends.Add(friend);
-                _context.SaveChanges();
-            }
-        }
-
-        // Delette friend method
-        public void DeleteFriend(int clientId, int friendId)
-        {
-            var client = _context.Clients.Include(c => c.Friends).FirstOrDefault(c => c.ClientId == clientId);
-            var friend = _context.Clients.Find(friendId);
-
-            if (client != null && friend != null && client.Friends.Contains(friend))
-            {
-                client.Friends.Remove(friend);
-                _context.SaveChanges();
-            }
-        }
-
-        // Method to get all friend of a specific client
-        public List<Client> GetAllFriends(int clientId)
-        {
-            var client = _context.Clients
-                .Include(c => c.Friends)
-                .FirstOrDefault(c => c.ClientId == clientId);
-
-            return client?.Friends.ToList() ?? new List<Client>();
-        }
-        // Get id method
-        public int GetId(string nickName)
-        {
-            int id=0;
-            List<Client> clients=GetClients();
-            foreach (Client client in clients) 
-            {
-                if (client.NickName == nickName) 
-                {
-                    id = client.ClientId; break;
-                }
-            }
-
-            return id;
-        }
+        // Інші методи для управління клієнтами
+        public List<Client> GetClients() => _context.Clients.ToList();
     }
 }

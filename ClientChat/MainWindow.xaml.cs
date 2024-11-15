@@ -57,16 +57,9 @@ namespace ClientChat
             ListenToServer();
             JoinCheck();
             InitializeTcpConnection();
-            // Next statements are for example, how to start working with database
+   
             ClientChatContext context = new();
             Repository repository = new Repository(context);
-
-            List<Client> friends = repository.GetAllFriends(3);
-            foreach (var friend in friends)
-            {
-                MessageBox.Show(friend.NickName.ToString());
-            }
-            /////////////////////////////////////////////////////////////
         }
 
         private void Send_Button_Click(object sender, RoutedEventArgs e)
